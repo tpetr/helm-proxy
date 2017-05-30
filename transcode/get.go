@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	//"golang.org/x/net/context"
 	"k8s.io/helm/pkg/proto/hapi/services"
+	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 )
 
 // Get retrieves a release record.
@@ -16,9 +17,8 @@ func (p *Proxy) Get(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	req := &services.GetReleaseContentRequest{}
-	if err := json.Unmarshal(data, req); err != nil {
-		return err
-	}
+
+	runtime.PopulateQueryParameters(req, r.URL.Query(), utilities.NewDoubleArray(nil))
 
 	var res *services.GetReleaseContentResponse
 	err = p.do(func(rlc services.ReleaseServiceClient) error {

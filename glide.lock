@@ -30,10 +30,8 @@ imports:
   - naming
   - peer
   - transport
-- name: k8s.io/client-go
-  version: b22087a53becae45931ed72d5e0f12e0031d771a
 - name: k8s.io/helm
-  version: f8037c83c647b56d9ef42d0d5254e5fc563e3048
+  version: d83c245fc324117885ed83afc90ac74afed271b4
   subpackages:
   - pkg/proto
   - pkg/proto/hapi/chart
@@ -41,4 +39,6 @@ imports:
   - pkg/proto/hapi/services
   - pkg/proto/hapi/version
   - pkg/version
+- name:
+  version: f6f92fcd9cdd44baa8425a1b27d181b614d0da1b
 testImports: []

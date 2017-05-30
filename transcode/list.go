@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"k8s.io/helm/pkg/proto/hapi/services"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/utilities"
 )
 
 // List proxies a list request
@@ -16,9 +18,7 @@ func (p *Proxy) List(w http.ResponseWriter, r *http.Request) error {
 
 	req := &services.ListReleasesRequest{}
 
-	if err := json.Unmarshal(data, req); err != nil {
-		return err
-	}
+	runtime.PopulateQueryParameters(req, r.URL.Query(), utilities.NewDoubleArray(nil))
 
 	var res *services.ListReleasesResponse
 	err = p.do(func(rlc services.ReleaseServiceClient) error {
