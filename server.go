@@ -85,6 +85,8 @@ func bootstrap(proxy *transcode.Proxy, auth *authenticationv1.AuthenticationV1Cl
 			return
 		}
 
+		w.Header().Add("Content-Type", "application/json")
+
 		for _, rr := range api {
 			if rr.path == path {
 				if err := rr.handler(w, r); err != nil {
